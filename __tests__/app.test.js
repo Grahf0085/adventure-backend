@@ -87,4 +87,92 @@ describe('adventurer routes', () => {
 
   });
 
+  it('gets an adventurer', async() => {
+
+    const newAdventurer = await Adventurer.create({
+      alias: 'Xeno',
+      currentClass: 'Warrior',
+      level: 75,
+      title: 'Heroe',
+      warLvl: 37,
+      mnkLvl: 16,
+      thfLvl: 37,
+      wizLvl: 0,
+      clrLvl: 0,
+      brdLvl: 0,
+      missionRank: 5,
+      zone: 'Great Desert'
+    });
+
+    const res = await request(app)
+      .get(`/api/v1/${newAdventurer.id}`);
+
+    expect(res.body).toEqual(newAdventurer);
+  });
+
+  it('deletes an adventurer', async() => {
+    
+    const newAdventurer = await Adventurer.create({
+      alias: 'Xeno',
+      currentClass: 'Warrior',
+      level: 75,
+      title: 'Heroe',
+      warLvl: 37,
+      mnkLvl: 16,
+      thfLvl: 37,
+      wizLvl: 0,
+      clrLvl: 0,
+      brdLvl: 0,
+      missionRank: 5,
+      zone: 'Great Desert'
+    });
+
+    const res = await request(app)
+      .delete(`/api/v1/${newAdventurer.id}`);
+    
+    expect(res.body).toEqual(newAdventurer);
+  });
+
+  it('updates an adventurers title', async() => {
+    
+    const newAdventurer = await Adventurer.create({
+      alias: 'Xeno',
+      currentClass: 'Warrior',
+      level: 75,
+      title: 'Heroe',
+      warLvl: 37,
+      mnkLvl: 16,
+      thfLvl: 37,
+      wizLvl: 0,
+      clrLvl: 0,
+      brdLvl: 0,
+      missionRank: 5,
+      zone: 'Great Desert'
+    });
+
+    newAdventurer.title = 'loser';
+
+    const changedAdventurer = {
+      id: '1',
+      alias: 'Xeno',
+      currentClass: 'Warrior',
+      level: 75,
+      title: 'loser',
+      warLvl: 37,
+      mnkLvl: 16,
+      thfLvl: 37,
+      wizLvl: 0,
+      clrLvl: 0,
+      brdLvl: 0,
+      missionRank: 5,
+      zone: 'Great Desert'
+    };
+
+    const res = await request(app)
+      .put(`/api/v1/${newAdventurer.id}`)
+      .send(newAdventurer);
+
+    expect(res.body).toEqual(changedAdventurer);
+  });
+
 });
