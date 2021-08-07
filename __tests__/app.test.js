@@ -150,7 +150,7 @@ describe('adventurer routes', () => {
       zone: 'Great Desert'
     });
 
-    newAdventurer.title = 'loser';
+    const title = { title: 'loser' };
 
     const changedAdventurer = {
       id: '1',
@@ -170,7 +170,7 @@ describe('adventurer routes', () => {
 
     const res = await request(app)
       .put(`/api/v1/${newAdventurer.id}`)
-      .send(newAdventurer);
+      .send(title);
 
     expect(res.body).toEqual(changedAdventurer);
   });
